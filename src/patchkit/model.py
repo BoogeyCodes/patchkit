@@ -65,6 +65,15 @@ class Patch:
     def removed(self) -> int:
         return sum(f.removed for f in self.files)
 
+    @property
+    def net(self) -> int:
+        """Net line change across the patch (insertions minus deletions)."""
+        return self.added - self.removed
+
+    def paths(self) -> list[str]:
+        """The paths this patch touches, in order — handy for spotting overlap between runs."""
+        return [f.path for f in self.files]
+
     def summary(self) -> str:
         """A git-style one-liner, e.g. ``3 files changed, 42 insertions(+), 9 deletions(-)``."""
         n = len(self.files)

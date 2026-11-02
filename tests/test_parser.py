@@ -70,6 +70,8 @@ def test_multi_file_summary_and_stat():
     assert patch.removed == 1
     assert patch.summary() == "2 files changed, 4 insertions(+), 1 deletion(-)"
     assert patch.stat() == [("greet.py", 2, 1), ("new.txt", 2, 0)]
+    assert patch.net == 3  # 4 insertions - 1 deletion
+    assert patch.paths() == ["greet.py", "new.txt"]
 
 
 def test_hunk_counts():
